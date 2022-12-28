@@ -2,19 +2,20 @@ import React from "react";
 import "./Bar.css";
 
 const Bar = (props) => {
-    const width=props.screenWidth / (25*props.numberOfBlocks) ;
+    // const width=props.screenWidth / (25*props.numberOfBlocks) ;
   return (
-    <div className="Bar">
+    <div id={props.id} className="Bar">
     <button
       className="rectangle"
       style={{
-        height: `${props.height + "rem"}`,
-        width: `${width+ "rem"}`,
+        height: `${props.height*2 + "px"}`,
+        // width: `${width+ "rem"}`,
+        background:props.background
       }}
     >
       {" "}
     </button>
-    <h3>{props.height}</h3>
+    <h6>{props.height}</h6>
     </div>
   );
 };

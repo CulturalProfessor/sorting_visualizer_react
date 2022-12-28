@@ -1,5 +1,5 @@
 .rectangle {
-  width: 100px;
+  width: 1px;
   height: 400px;
 
   /* ff 3.6+ */
@@ -43,10 +43,11 @@
 .Bar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 1px;
-  margin: 1px;
+  justify-content:space-evenly;
+  padding:0px 1px;
+  margin: 0px 1px;
+  margin-bottom: 0px;
 }
-h3{
+h6{
     color: rgb(255, 255, 255);
 }
