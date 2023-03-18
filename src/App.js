@@ -3,7 +3,7 @@ import Bar from "./components/Bar";
 import "./App.css";
 
 const MAX_LENGTH = 1000;
-const DEFAULT_LENGTH = 25;
+const DEFAULT_LENGTH = 50;
 
 const App = () => {
   const [array, setArray] = useState([]);
@@ -25,6 +25,7 @@ const App = () => {
       setTimeout(resolve, time);
     });
   };
+
   const sort = async () => {
     let tempArray = [...array];
     for (let i = 0; i < tempArray.length - 1; i++) {
@@ -34,22 +35,18 @@ const App = () => {
           tempArray[j] = tempArray[i];
           tempArray[i] = t;
           setArray([...tempArray]);
-          document.getElementById(`bar-${i}`).style.color = "#8b008b";
-          document.getElementById(`bar-${j}`).style.color = "#8b008b";
+          document.getElementById(`bar-${i}`).classList.add("swapping");
+          document.getElementById(`bar-${j}`).classList.add("swapping");
           await timer((i - j) * 1);
-          document.getElementById(`bar-${i}`).style.color = "#ee82ee";
-          document.getElementById(`bar-${j}`).style.color = "#ee82ee";
-          await timer(1);
+          document.getElementById(`bar-${i}`).classList.remove("swapping");
+          document.getElementById(`bar-${j}`).classList.remove("swapping");
         }
       }
+      document.getElementById(`bar-${i}`).classList.add("sorted");
     }
-    resetColors();
-  };
-  const resetColors = () => {
-    for (let i = 0; i < array.length; i++) {
-      let bar = document.getElementById(`bar-${i}`);
-      bar.style.color = "#ee82ee";
-    }
+    document
+      .getElementById(`bar-${tempArray.length - 1}`)
+      .classList.add("sorted");
   };
 
   const handleLengthChange = (e) => {
@@ -66,21 +63,23 @@ const App = () => {
 
   return (
     <>
-      <h1 className="title">Bubble Sort Visualizer</h1>
-      <div>
-        <label htmlFor="array-length-input" className="array-length-label">
-          Array Length:
-        </label>
-        <input
-          id="length-input"
-          className="input"
-          type="number"
-          placeholder={DEFAULT_LENGTH}
-          defaultValue={DEFAULT_LENGTH}
-          min="0"
-          max={MAX_LENGTH}
-          onInput={handleLengthChange}
-        ></input>
+      <h1 className="title">Sorting Visualizer</h1>
+      <div className="control-panel">
+        <div className="input-group">
+          <label htmlFor="array-length-input" className="array-length-label">
+            Array Length:
+          </label>
+          <input
+            id="length-input"
+            className="input"
+            type="number"
+            placeholder={DEFAULT_LENGTH}
+            defaultValue={DEFAULT_LENGTH}
+            min="0"
+            max={MAX_LENGTH}
+            onInput={handleLengthChange}
+          ></input>
+        </div>
         <button id="sort" formAction="submit" onClick={sort}>
           SORT
         </button>

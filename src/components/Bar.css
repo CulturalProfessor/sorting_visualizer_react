@@ -7,7 +7,7 @@
   transition: all 0.1s ease-in-out;
 }
 .bar.swapping {
-  background-color: #ffddff;
+  background-color: #b32369;
 }
 .rectangle {
   width: 100%;
