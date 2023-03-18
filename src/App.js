@@ -1,102 +1,104 @@
-//https://dev.to/igor_bykov/react-calling-functional-components-as-functions-1d3l
-
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Bar from "./components/Bar";
 import "./App.css";
 
+const MAX_LENGTH = 1000;
+const DEFAULT_LENGTH = 100;
+
 const App = () => {
+  const [array, setArray] = useState([]);
 
-  useEffect(()=>{
-    randomize();
-  },[])
+  useEffect(() => {
+    randomize(DEFAULT_LENGTH);
+  }, []);
 
-  let [array, setArray] = useState([]);
-  // let [length,setLength]=useState(100);
-  let Length=100;
-  const randomize=async ()=>{
-    let currentArray = [];
-    for (let i = 0; i < Length; i++) {
-      currentArray.push(Math.round(Math.random() * 200 + 30));
-      // await timer(1)
-      // let bar=document.getElementById(`${i}`).style;
-      // bar.backgroundColor='#ffccff';
-    }
-    setArray([...currentArray,array]);
-    console.log(array.length);
-  }
+  const randomize = (length) => {
+    setArray(
+      Array(length)
+        .fill()
+        .map(() => Math.round(Math.random() * 200 + 30))
+    );
+  };
 
-  
-
-  async function timer(time) {
+  const timer = (time) => {
     return new Promise((resolve) => {
       setTimeout(resolve, time);
     });
-  }
-
-   async function sort() {
-    let tempArray = array;
-    console.log(tempArray);
-    for (let i = 0; i < array.length-1; i++) {
-      for (let j = i + 1; j < array.length ; j++) {
+  };
+  const sort = async () => {
+    let tempArray = [...array];
+    for (let i = 0; i < tempArray.length - 1; i++) {
+      for (let j = i + 1; j < tempArray.length; j++) {
         if (tempArray[i] > tempArray[j]) {
           let t = tempArray[j];
           tempArray[j] = tempArray[i];
           tempArray[i] = t;
-          let bar1=document.getElementById(i);
-          let bar2=document.getElementById(j);
-          bar1.backgroundColor='#ffffff';
-          bar2.backgroundColor='#ffddff';
-          // console.log(bar1);
-          await timer((i-j)*1);
+          setArray([...tempArray]);
+          document.getElementById(`bar-${i}`).style.color = "#8b008b";
+          document.getElementById(`bar-${j}`).style.color = "#8b008b";
+          await timer((i - j) * 1);
+          document.getElementById(`bar-${i}`).style.color = "#ee82ee";
+          document.getElementById(`bar-${j}`).style.color = "#ee82ee";
+          await timer(1);
         }
       }
-      setArray([...array,tempArray]);
     }
-    console.log(tempArray);
-  }
+    resetColors();
+  };
+  const resetColors = () => {
+    for (let i = 0; i < array.length; i++) {
+      let bar = document.getElementById(`bar-${i}`);
+      bar.style.color = "#ee82ee";
+    }
+  };
 
-  // console.log(array);
+  const handleLengthChange = (e) => {
+    const newLength = Number(e.target.value);
+    if (newLength >= 0 && newLength <= MAX_LENGTH) {
+      randomize(newLength);
+      e.target.setCustomValidity("");
+    } else if (newLength > MAX_LENGTH) {
+      e.target.setCustomValidity(`The maximum array length is ${MAX_LENGTH}`);
+    } else {
+      e.target.setCustomValidity("Length must be a positive integer");
+    }
+  };
+
   return (
     <>
+      <h1 className="title">Bubble Sort Visualizer</h1>
       <div>
+        <label htmlFor="array-length-input" className="array-length-label">
+          Array Length:
+        </label>
         <input
+          id="length-input"
           className="input"
-          placeholder="Length of Array"
-          onInput={(e) => {
-            array.length=e.target.value;
-          }}
+          type="number"
+          placeholder={DEFAULT_LENGTH}
+          defaultValue={DEFAULT_LENGTH}
+          min="0"
+          max={MAX_LENGTH}
+          onInput={handleLengthChange}
         ></input>
-        <button
-          id="sort"
-          formAction="submit"
-          onClick={(e) => {
-            e.preventDefault();
-           sort();
-          }}
-        >
+        <button id="sort" formAction="submit" onClick={sort}>
           SORT
         </button>
         <button
-          id="sort"
+          id="randomize"
           formAction="submit"
-          onClick={(e) => {
-            e.preventDefault();
-           randomize();
-          }}
+          onClick={() => randomize(DEFAULT_LENGTH)}
         >
           RANDOMIZE
         </button>
       </div>
       <div className="bars">
-        {
-          array.map((value, key) => {
-          // console.log(array);
-          return <Bar id={key} key={key} height={value} />;
-        })
-        }
+        {array.map((value, key) => (
+          <Bar id={`bar-${key}`} key={key} index={key} height={value} />
+        ))}
       </div>
     </>
   );
 };
+
 export default App;

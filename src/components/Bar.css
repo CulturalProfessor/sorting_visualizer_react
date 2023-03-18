@@ -1,53 +1,25 @@
-.rectangle {
-  width: 1px;
+.bar {
+  width: 8px;
   height: 400px;
-
-  /* ff 3.6+ */
-  background: -moz-linear-gradient(
-    90deg,
-    rgba(0, 0, 255, 1) 0%,
-    rgba(238, 130, 238, 1) 100%
-  );
-
-  /* safari 5.1+,chrome 10+ */
-  background: -webkit-linear-gradient(
-    90deg,
-    rgba(0, 0, 255, 1) 0%,
-    rgba(238, 130, 238, 1) 100%
-  );
-
-  /* opera 11.10+ */
-  background: -o-linear-gradient(
-    90deg,
-    rgba(0, 0, 255, 1) 0%,
-    rgba(238, 130, 238, 1) 100%
-  );
-
-  /* ie 6-9 */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ee82ee', endColorstr='#0000FF', GradientType=0 );
-
-  /* ie 10+ */
-  background: -ms-linear-gradient(
-    90deg,
-    rgba(0, 0, 255, 1) 0%,
-    rgba(238, 130, 238, 1) 100%
-  );
-
-  /* global 94%+ browsers support */
+  background-color: #c9d6df;
+  margin: 0 2px;
+  transition: all 0.1s ease-in-out;
+  transform: rotateX(180deg);
+}
+.bar.swapping {
+  background-color: #ffddff;
+}
+.rectangle {
+  width: 100%;
   background: linear-gradient(
     90deg,
     rgba(0, 0, 255, 1) 0%,
     rgba(238, 130, 238, 1) 100%
   );
 }
-.Bar {
-  display: flex;
-  flex-direction: column;
-  justify-content:space-evenly;
-  padding:0px 1px;
-  margin: 0px 1px;
-  margin-bottom: 0px;
-}
-h6{
-    color: rgb(255, 255, 255);
+
+h6 {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
 }
