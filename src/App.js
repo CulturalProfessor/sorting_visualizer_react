@@ -63,7 +63,7 @@ const App = () => {
 
   return (
     <>
-      <h1 className="title">Sorting Visualizer</h1>
+      <h1 className="title">BUBBLE SORT VISUALIZER</h1>
       <div className="control-panel">
         <div className="input-group">
           <label htmlFor="array-length-input" className="array-length-label">
