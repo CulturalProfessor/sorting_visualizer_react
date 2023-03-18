@@ -1,10 +1,10 @@
 .bar {
   width: 8px;
   height: 400px;
+  border-radius: 5px;
   background-color: #c9d6df;
   margin: 0 2px;
   transition: all 0.1s ease-in-out;
-  transform: rotateX(180deg);
 }
 .bar.swapping {
   background-color: #ffddff;

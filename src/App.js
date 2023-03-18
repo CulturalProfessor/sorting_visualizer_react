@@ -3,7 +3,7 @@ import Bar from "./components/Bar";
 import "./App.css";
 
 const MAX_LENGTH = 1000;
-const DEFAULT_LENGTH = 100;
+const DEFAULT_LENGTH = 25;
 
 const App = () => {
   const [array, setArray] = useState([]);
