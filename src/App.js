@@ -37,7 +37,7 @@ const App = () => {
           setArray([...tempArray]);
           document.getElementById(`bar-${i}`).classList.add("swapping");
           document.getElementById(`bar-${j}`).classList.add("swapping");
-          await timer((i - j) * 1);
+          await timer((i - j) * 2);
           document.getElementById(`bar-${i}`).classList.remove("swapping");
           document.getElementById(`bar-${j}`).classList.remove("swapping");
         }
